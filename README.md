@@ -1,7 +1,7 @@
 # archyo
 An Arch Linux Based Docker Image. 
 
-*Author*: Rene Pineda.
+**Author**: *Rene Pineda*.
 
 GNU GPL v3.
 
