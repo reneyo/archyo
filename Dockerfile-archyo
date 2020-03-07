@@ -1,0 +1,36 @@
+######################################################################
+#  An Arch Linux Based Docker ImageImage. License is GNU GPL v3.
+#  https://github.com/reneyo/archyo
+######################################################################
+
+FROM archlinux
+
+LABEL maintainer='Rene Pineda  | https://github.com/reneyo/archyo | yositunel@yahoo.com'
+
+# Default privileged user (sudo, wheel)
+ARG yo_user=archyo
+
+# Override this with additional apps to install
+ARG yo_apps=
+
+# The default apps + yo_apps
+ARG yo_default_apps="sudo openssh vim $yo_apps"
+
+# Run the command inside your image filesystem
+RUN pacman -Syu --noconfirm
+RUN pacman -Sy --noconfirm $yo_default_apps
+RUN useradd -m -G wheel $yo_user
+RUN sed -i -e 's/# \(%wheel.*NOPASSWD.*\)/\1/' /etc/sudoers
+RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N '' <<< y
+RUN ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key -N '' <<< y
+RUN echo "Set disable_coredump false" > /etc/sudo.conf
+
+# Inform Docker that the container is listening on the specified port at runtime.
+EXPOSE 22
+
+# swwitch context to regular user
+WORKDIR /home/$yo_user
+USER $yo_user
+ENV PATH /home/$yo_user/bin:$PATH
+CMD sudo /usr/sbin/sshd; /bin/bash
+
