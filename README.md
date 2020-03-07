@@ -5,7 +5,7 @@ An Arch Linux Based Docker Image.
 
 GNU GPL v3.
 
-The resulting image will contain the following configuration:
+#### Default configuration:
 * A default sudo user named **archyo**
   * The user can be overriden during the build via **--build-arg yo_user=<your_user>**
 * Default installed apps:
