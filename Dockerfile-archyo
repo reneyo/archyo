@@ -24,6 +24,7 @@ RUN sed -i -e 's/# \(%wheel.*NOPASSWD.*\)/\1/' /etc/sudoers
 RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N '' <<< y
 RUN ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key -N '' <<< y
 RUN echo "Set disable_coredump false" > /etc/sudo.conf
+RUN sed -i '1 i\Server = https://mirror.umd.edu/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist
 
 # Inform Docker that the container is listening on the specified port at runtime.
 EXPOSE 22

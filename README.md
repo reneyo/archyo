@@ -20,7 +20,7 @@ GNU GPL v3.
 ```
 docker build \
   --build-arg yo_user=neo_matrix4 \
-  --build-arg yo_apps='jdk11-openjdk maven sshpass git unzip' \
+  --build-arg yo_apps='jdk11-openjdk maven sshpass git unzip jq yq nodejs github-cli' \
   -t archyo \
   -f Dockerfile-archyo \
   /some/working/dir
